@@ -12,7 +12,7 @@ import ru.itis.financeapi.dto.response.GoalAndBudgetWithProgressResponse;
 
 import java.util.Set;
 
-@Tag(name = "UserApi")
+@Tag(name = "GoalAndLimitApi")
 @RequestMapping("api/v1/goalAndBudgetLimit")
 public interface GoalAndBudgetLimitApi {
     @PostMapping
