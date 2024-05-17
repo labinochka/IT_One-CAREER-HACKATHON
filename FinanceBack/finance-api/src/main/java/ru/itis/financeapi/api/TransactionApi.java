@@ -86,6 +86,17 @@ public interface TransactionApi {
                                         @RequestParam(defaultValue = "10") int limit,
                                         int year);
 
+    @Operation(summary = "Получение транзакций по типу транзакции")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Транзакции получены"),
+            @ApiResponse(responseCode = "400", description = "Ошибка валидации"),
+            @ApiResponse(responseCode = "401", description = "Не пройдена авторизация"),
+            @ApiResponse(responseCode = "403", description = "Недостаточно прав"),
+            @ApiResponse(responseCode = "500", description = "Ведутся технические работы")
+    })
+    @GetMapping("/transactionalType")
+    Page<TransactionResponse> getByTransactionalType(String type);
+
     @Operation(summary = "Создание транзакции")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Транзакции получены"),
