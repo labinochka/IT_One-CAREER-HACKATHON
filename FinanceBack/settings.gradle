@@ -1,1 +1,5 @@
 rootProject.name = 'FinanceBack'
+
+include 'finance-api'
+include 'finance-db'
+include 'finance-impl'
