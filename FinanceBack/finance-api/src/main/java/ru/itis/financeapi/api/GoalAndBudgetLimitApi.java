@@ -49,7 +49,7 @@ public interface GoalAndBudgetLimitApi {
 
     @Operation(summary = "Удаление цели и бюджета по почте пользователя", method = "delete-by-user-mail")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Цль и бюджет удалены"),
+            @ApiResponse(responseCode = "200", description = "Цeль и бюджет удалены"),
             @ApiResponse(responseCode = "400", description = "Ошибка валидации"),
             @ApiResponse(responseCode = "401", description = "Не пройдена авторизация"),
             @ApiResponse(responseCode = "403", description = "Недостаточно прав"),
