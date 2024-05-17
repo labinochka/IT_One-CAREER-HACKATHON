@@ -1,5 +1,7 @@
 package ru.itis.financeapi.dto.request;
 
 public record AccountUpdateRequest(
-    String username) {
+    String firstName,
+    String lastName,
+    String email) {
 }
