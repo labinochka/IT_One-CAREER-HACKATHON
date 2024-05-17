@@ -95,7 +95,9 @@ public interface TransactionApi {
             @ApiResponse(responseCode = "500", description = "Ведутся технические работы")
     })
     @GetMapping("/transactionalType")
-    Page<TransactionResponse> getByTransactionalType(String type);
+    Page<TransactionResponse> getByTransactionalType(@RequestParam(defaultValue = "0") int offset,
+                                                     @RequestParam(defaultValue = "10") int limit,
+                                                     String type);
 
     @Operation(summary = "Создание транзакции")
     @ApiResponses(value = {
