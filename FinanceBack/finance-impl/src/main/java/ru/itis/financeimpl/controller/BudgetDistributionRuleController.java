@@ -1,6 +1,7 @@
 package ru.itis.financeimpl.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import ru.itis.financeapi.api.BudgetDistributionRuleApi;
 import ru.itis.financeapi.dto.request.BudgetDistributionRuleSaveRequest;
@@ -17,22 +18,22 @@ public class BudgetDistributionRuleController implements BudgetDistributionRuleA
     private final BudgetDistributionRuleService service;
 
     @Override
-    public void create(BudgetDistributionRuleSaveRequest saveRequest) {
-        service.create(saveRequest);
+    public void create(BudgetDistributionRuleSaveRequest saveRequest, UserDetails userDetails) {
+        service.create(saveRequest, userDetails.getUsername());
     }
 
     @Override
-    public void update(BudgetDistributionRuleUpdateRequest updateRequest) {
-        service.update(updateRequest);
+    public void update(BudgetDistributionRuleUpdateRequest updateRequest, UserDetails userDetails) {
+        service.update(updateRequest, userDetails.getUsername());
     }
 
     @Override
-    public Set<BudgetDistributionRuleResponse> getAll() {
-        return service.getAll();
+    public Set<BudgetDistributionRuleResponse> getAll(UserDetails userDetails) {
+        return service.getAll(userDetails.getUsername());
     }
 
     @Override
-    public void delete(UUID id) {
-        service.delete(id);
+    public void delete(UUID id, UserDetails userDetails) {
+        service.delete(id, userDetails.getUsername());
     }
 }
