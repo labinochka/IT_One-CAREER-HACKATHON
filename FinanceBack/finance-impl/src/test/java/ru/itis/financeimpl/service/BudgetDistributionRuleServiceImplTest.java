@@ -12,6 +12,7 @@ import ru.itis.financeapi.dto.response.BudgetDistributionRuleResponse;
 import ru.itis.financeimpl.mapper.BudgetDistributionRuleMapper;
 import ru.itis.financeimpl.model.Account;
 import ru.itis.financeimpl.model.BudgetDistributionRule;
+import ru.itis.financeimpl.repository.AccountRepository;
 import ru.itis.financeimpl.repository.BudgetDistributionRuleRepository;
 import ru.itis.financeimpl.service.impl.BudgetDistributionRuleServiceImpl;
 
@@ -23,7 +24,10 @@ import java.util.UUID;
 public class BudgetDistributionRuleServiceImplTest {
 
     @Mock
-    private BudgetDistributionRuleRepository repository;
+    private BudgetDistributionRuleRepository distributionRuleRepository;
+
+    @Mock
+    private AccountRepository accountRepository;
 
     @Mock
     private BudgetDistributionRuleMapper mapper;
@@ -33,24 +37,27 @@ public class BudgetDistributionRuleServiceImplTest {
 
     @BeforeEach
     public void setup() {
-        service = new BudgetDistributionRuleServiceImpl(repository, mapper);
+        service = new BudgetDistributionRuleServiceImpl(distributionRuleRepository, accountRepository, mapper);
     }
 
     @Test
     public void shouldReturnAll() {
+        String email = "mm@mail.ru";
         Set<BudgetDistributionRuleResponse> rules = getRules();
-        Mockito.when(service.getAll()).thenReturn(rules);
+        Mockito.when(service.getAll(email)).thenReturn(rules);
 
-        Set<BudgetDistributionRuleResponse> responses = service.getAll();
+        Set<BudgetDistributionRuleResponse> responses = service.getAll(email);
 
         Assertions.assertNotNull(responses);
         Assertions.assertEquals(rules.size(), responses.size());
     }
     private Set<BudgetDistributionRuleResponse> getRules() {
+        Account account = new Account();
+        account.setEmail("mm@mail.ru");
         BudgetDistributionRule rule1 = new BudgetDistributionRule(UUID.randomUUID(), Instant.now(), Instant.now(),
-                new Account(), 100000, 500, "продукты");
+                account, 100000, 500, "РїСЂРѕРґСѓРєС‚С‹");
         BudgetDistributionRule rule2 = new BudgetDistributionRule(UUID.randomUUID(), Instant.now(), Instant.now(),
-                new Account(), 100000, 500, "продукты");
+                account, 100000, 500, "РїСЂРѕРґСѓРєС‚С‹");
         return Set.of(mapper.toResponse(rule1), mapper.toResponse(rule2));
     }
 }
