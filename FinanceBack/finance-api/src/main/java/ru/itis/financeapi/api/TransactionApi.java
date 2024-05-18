@@ -70,7 +70,7 @@ public interface TransactionApi {
     @GetMapping("/month/{month}/{year}")
     Page<TransactionResponse> getByMonth(@RequestParam(defaultValue = "0") int offset,
                                          @RequestParam(defaultValue = "10") int limit,
-                                         @PathVariable("month") String month,
+                                         @PathVariable("month") int month,
                                          @PathVariable("year") int year);
 
     @Operation(summary = "Получение транзакций по году")

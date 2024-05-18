@@ -33,8 +33,8 @@ public class Transaction {
     @Column(name = "update_date")
     private Instant lastUpdateDate;
 
-    // @ManyToOne
-    private UUID account; // ToDo: insert User
+    @ManyToOne
+    private Account account;
 
     @Column(name = "date")
     private Instant date;
