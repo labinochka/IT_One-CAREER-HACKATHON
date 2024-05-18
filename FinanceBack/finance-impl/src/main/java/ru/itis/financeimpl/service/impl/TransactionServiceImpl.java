@@ -17,6 +17,9 @@ import ru.itis.financeimpl.repository.TransactionRepository;
 import ru.itis.financeimpl.service.TransactionService;
 
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Service
@@ -62,6 +65,15 @@ public class TransactionServiceImpl implements TransactionService {
     public Page<TransactionResponse> getByTransactionalType(int offset, int limit, String transactionalType) {
         Pageable pageable = PageRequest.of(offset, limit);
         return mapper.toResponse(repository.findAllByTransactionalType(transactionalType, pageable));
+    }
+
+    @Override // ToDo: протестить!!! возможно, нужно будет отдельный Jquery писать в репо
+    public Set<TransactionResponse> getByDates(Instant startDate, Instant endDate) {
+        List<TransactionResponse> list = repository.findAllByDateBetween(startDate, endDate)
+                .stream()
+                .map(mapper::toResponse)
+                .toList();
+        return new HashSet<>(list);
     }
 
     @Override

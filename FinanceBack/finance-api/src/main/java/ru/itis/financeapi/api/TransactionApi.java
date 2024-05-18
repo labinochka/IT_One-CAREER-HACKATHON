@@ -12,6 +12,7 @@ import ru.itis.financeapi.dto.request.TransactionRequest;
 import ru.itis.financeapi.dto.response.TransactionResponse;
 
 import java.time.Instant;
+import java.util.Set;
 import java.util.UUID;
 
 @Tags(value = {
@@ -98,6 +99,17 @@ public interface TransactionApi {
     Page<TransactionResponse> getByTransactionalType(@RequestParam(defaultValue = "0") int offset,
                                                      @RequestParam(defaultValue = "10") int limit,
                                                      @PathVariable("transactionalType") String type);
+
+    @Operation(summary = "Получение транзакций по конкретным срокам")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Транзакции получены"),
+            @ApiResponse(responseCode = "400", description = "Ошибка валидации"),
+            @ApiResponse(responseCode = "401", description = "Не пройдена авторизация"),
+            @ApiResponse(responseCode = "403", description = "Недостаточно прав"),
+            @ApiResponse(responseCode = "500", description = "Ведутся технические работы")
+    })
+    @GetMapping("/date/customDate")
+    Set<TransactionResponse> getByDates(@RequestParam Instant startDate, @RequestParam Instant endDate);
 
     @Operation(summary = "Создание транзакции")
     @ApiResponses(value = {

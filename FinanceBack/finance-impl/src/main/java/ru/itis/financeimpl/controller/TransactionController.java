@@ -9,6 +9,7 @@ import ru.itis.financeapi.dto.response.TransactionResponse;
 import ru.itis.financeimpl.service.TransactionService;
 
 import java.time.Instant;
+import java.util.Set;
 import java.util.UUID;
 
 @RestController
@@ -45,6 +46,11 @@ public class TransactionController implements TransactionApi {
     @Override
     public Page<TransactionResponse> getByTransactionalType(int offset, int limit, String type) {
         return service.getByTransactionalType(offset, limit, type);
+    }
+
+    @Override
+    public Set<TransactionResponse> getByDates(Instant startDate, Instant endDate) {
+        return null;
     }
 
     @Override

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import ru.itis.financeimpl.model.Transaction;
 
 import java.time.Instant;
+import java.util.List;
 import java.util.UUID;
 
 @Repository
@@ -25,4 +26,6 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID> 
     Page<Transaction> findAllByYear(@Param("year") int year, Pageable pageable);
 
     Page<Transaction> findAllByTransactionalType(String type, Pageable pageable);
+
+    List<Transaction> findAllByDateBetween(Instant startDate, Instant endDate);
 }
