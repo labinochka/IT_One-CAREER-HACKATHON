@@ -1,3 +1,15 @@
 spring:
   application:
     name: finance-impl
+
+  liquibase:
+    change-log: classpath:db/database-changelog-master.yaml
+    enabled: true
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/finance
+    hikari:
+      password: password
+      username: postgres
+      maximum-pool-size: 20
+      jdbc-url: jdbc:postgresql://localhost:5432/finance
