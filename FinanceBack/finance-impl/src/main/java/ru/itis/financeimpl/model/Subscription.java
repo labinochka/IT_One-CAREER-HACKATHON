@@ -20,6 +20,9 @@ public class Subscription {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    @ManyToOne
+    private Account account;
+
     private String name;
 
     private String description;

@@ -22,7 +22,7 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID> 
     Page<Transaction> findAllByMonthAndYear(@Param("year") int month, @Param("month") int year, Pageable pageable);
 
     @Query("SELECT t FROM Transaction t WHERE YEAR(t.date) = :yearh")
-    Page<Transaction> findAllByYear(@Param("month") int year, Pageable pageable);
+    Page<Transaction> findAllByYear(@Param("year") int year, Pageable pageable);
 
     Page<Transaction> findAllByTransactionalType(String type, Pageable pageable);
 }

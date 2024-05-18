@@ -1,0 +1,4 @@
+databaseChangeLog:
+  - include:
+      file: DDL/20240518-init-transaction-db.sql
+      relativeToChangelogFile: true
