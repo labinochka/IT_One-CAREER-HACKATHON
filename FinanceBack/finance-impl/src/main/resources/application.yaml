@@ -9,7 +9,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/finance
     hikari:
-      password: 1234
+      password: password
       username: postgres
       maximum-pool-size: 20
       jdbc-url: jdbc:postgresql://localhost:5432/finance
@@ -35,6 +35,9 @@ spring:
               smtp.gmail.com
         debug:
           true
+  logger:
+    enabled:
+      true
 jwt:
   expiration:
     access:
