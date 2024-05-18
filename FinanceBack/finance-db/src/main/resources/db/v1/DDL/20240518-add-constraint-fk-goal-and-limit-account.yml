@@ -1,0 +1,11 @@
+databaseChangeLog:
+  - changeSet:
+      id: 4
+      author: salyukov
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: account_id
+            baseTableName: goal_and_limit
+            constraintName: goal_and_limit_accountid_fk_account_constraint
+            referencedColumnNames: id
+            referencedTableName: account
