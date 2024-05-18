@@ -23,7 +23,7 @@ public interface AccountApi {
             @ApiResponse(responseCode = "403", description = "Недостаточно прав"),
             @ApiResponse(responseCode = "500", description = "Ведутся технические работы")
     })
-    void create(AccountSaveRequest accountSaveRequest);
+    void create(@RequestBody AccountSaveRequest accountSaveRequest);
 
     @Operation(summary = "Получение пользователя по email", method = "find-by-email")
     @ApiResponses(value = {
