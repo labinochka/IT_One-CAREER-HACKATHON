@@ -9,7 +9,7 @@ import ru.itis.logger.aspect.LoggerAspect;
 
 @Configuration
 @ComponentScan("ru.itis")
-@ConditionalOnProperty(name = "spring.logger.enabled", havingValue = "true", matchIfMissing = true)
+@ConditionalOnProperty(prefix = "finance.logger", value = "enabled", havingValue = "true", matchIfMissing = true)
 public class LoggerConfig {
 
     @Bean
