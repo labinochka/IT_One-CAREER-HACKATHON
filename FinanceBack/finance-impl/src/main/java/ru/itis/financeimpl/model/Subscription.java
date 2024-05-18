@@ -21,6 +21,7 @@ public class Subscription {
     private UUID id;
 
     @ManyToOne
+    @JoinColumn(name = "account_id")
     private Account account;
 
     private String name;
@@ -29,8 +30,9 @@ public class Subscription {
 
     private BigDecimal price;
 
+    @Column(name = "start_date")
     private Instant startDate;
 
+    @Column(name = "end_date")
     private Instant endDate;
-
 }

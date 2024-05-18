@@ -12,7 +12,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "goal_and_limit")
-@SuperBuilder
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -20,9 +20,8 @@ import java.util.UUID;
 @ToString
 public class GoalAndBudgetLimit {
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", type = org.hibernate.id.UUIDGenerator.class)
-    private UUID accountId;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
     @CreationTimestamp
     @Column(name = "create_date")
@@ -32,8 +31,9 @@ public class GoalAndBudgetLimit {
     @Column(name = "update_date")
     private Instant lastUpdateDate;
 
-    // @ManyToOne
-    private UUID user; // ToDo: insert User
+    @ManyToOne
+    @JoinColumn(name = "account_id")
+    private Account account; // ToDo: insert User
 
     @Column(name = "make_money_goal")
     private int makeMoneyGoal;

@@ -1,0 +1,51 @@
+databaseChangeLog:
+  - changeSet:
+      id: 3
+      author: salyukov
+      changes:
+        - createTable:
+            tableName: goal_and_limit
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  defaultValueComputed: uuid_generate_v4()
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: goal_and_limit_pk
+              - column:
+                  name: make_money_goal
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: spend_money_goal
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: budget_limit
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: create_date
+                  type: timestamp
+                  constraints:
+                    nullable: false
+              - column:
+                  name: update_date
+                  type: timestamp
+              - column:
+                  name: start_date
+                  type: timestamp
+                  constraints:
+                    nullable: false
+              - column:
+                  name: end_date
+                  type: timestamp
+                  constraints:
+                    nullable: false
+              - column:
+                  name: account_id
+                  type: uuid
