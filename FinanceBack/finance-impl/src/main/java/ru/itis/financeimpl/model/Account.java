@@ -34,4 +34,8 @@ public class Account {
 
     @OneToMany(mappedBy = "account")
     private List<GoalAndBudgetLimit> goalsAndLimits;
+
+    @Column(name = "role")
+    @Enumerated(EnumType.STRING)
+    private Role role;
 }
