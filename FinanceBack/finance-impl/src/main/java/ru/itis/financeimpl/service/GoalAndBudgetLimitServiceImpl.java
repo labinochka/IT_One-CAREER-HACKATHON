@@ -1,16 +1,19 @@
-package ru.itis.financeimpl.controller;
+package ru.itis.financeimpl.service;
 
-import org.springframework.web.bind.annotation.RestController;
-import ru.itis.financeapi.api.GoalAndBudgetLimitApi;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 import ru.itis.financeapi.dto.request.GoalAndBudgetLimitCreateRequest;
 import ru.itis.financeapi.dto.request.GoalAndBudgetLimitUpdateRequest;
 import ru.itis.financeapi.dto.response.GoalAndBudgetLimitResponse;
 import ru.itis.financeapi.dto.response.GoalAndBudgetLimitWithProgressResponse;
+import ru.itis.financeimpl.repository.GoalAndBudgetLimitRepository;
 
 import java.util.Set;
 
-@RestController
-public class GoalAndBudgetLimitController implements GoalAndBudgetLimitApi {
+@Service
+@RequiredArgsConstructor
+public class GoalAndBudgetLimitServiceImpl implements GoalAndBudgetLimitService {
+    private final GoalAndBudgetLimitRepository repository;
 
     @Override
     public void create(GoalAndBudgetLimitCreateRequest saveRequest) {
@@ -19,12 +22,12 @@ public class GoalAndBudgetLimitController implements GoalAndBudgetLimitApi {
 
     @Override
     public Set<GoalAndBudgetLimitResponse> getAllCurrent() {
-        return null;
+        return Set.of();
     }
 
     @Override
     public Set<GoalAndBudgetLimitWithProgressResponse> getAllCurrentWithProgress() {
-        return null;
+        return Set.of();
     }
 
     @Override

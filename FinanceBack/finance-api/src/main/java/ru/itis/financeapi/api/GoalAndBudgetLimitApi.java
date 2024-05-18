@@ -7,8 +7,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 import ru.itis.financeapi.dto.request.GoalAndBudgetLimitCreateRequest;
 import ru.itis.financeapi.dto.request.GoalAndBudgetLimitUpdateRequest;
-import ru.itis.financeapi.dto.response.GoalAndBudgetResponse;
-import ru.itis.financeapi.dto.response.GoalAndBudgetWithProgressResponse;
+import ru.itis.financeapi.dto.response.GoalAndBudgetLimitResponse;
+import ru.itis.financeapi.dto.response.GoalAndBudgetLimitWithProgressResponse;
 
 import java.util.Set;
 
@@ -35,7 +35,7 @@ public interface GoalAndBudgetLimitApi {
             @ApiResponse(responseCode = "403", description = "Недостаточно прав"),
             @ApiResponse(responseCode = "500", description = "Ведутся технические работы")
     })
-    Set<GoalAndBudgetResponse> getAllCurrent();
+    Set<GoalAndBudgetLimitResponse> getAllCurrent();
 
     @GetMapping("/all-with-progress")
     @Operation(summary = "Получение целей и бюджетов", method = "get-all-current-goals-and-limits-with-progress")
@@ -46,7 +46,7 @@ public interface GoalAndBudgetLimitApi {
             @ApiResponse(responseCode = "403", description = "Недостаточно прав"),
             @ApiResponse(responseCode = "500", description = "Ведутся технические работы")
     })
-    Set<GoalAndBudgetWithProgressResponse> getAllCurrentWithProgress();
+    Set<GoalAndBudgetLimitWithProgressResponse> getAllCurrentWithProgress();
 
     @PatchMapping
     @Operation(summary = "Обновление цели и бюджета", method = "update")
