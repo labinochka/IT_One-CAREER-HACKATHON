@@ -123,7 +123,7 @@ public interface TransactionApi {
 
     @Operation(summary = "Создание транзакции")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Транзакции получены"),
+            @ApiResponse(responseCode = "200", description = "Транзакция сохранена"),
             @ApiResponse(responseCode = "400", description = "Ошибка валидации"),
             @ApiResponse(responseCode = "401", description = "Не пройдена авторизация"),
             @ApiResponse(responseCode = "403", description = "Недостаточно прав"),
@@ -134,7 +134,7 @@ public interface TransactionApi {
 
     @Operation(summary = "Обновление транзакции по id")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Транзакции получены"),
+            @ApiResponse(responseCode = "200", description = "Транзакция обновлена"),
             @ApiResponse(responseCode = "400", description = "Ошибка валидации"),
             @ApiResponse(responseCode = "401", description = "Не пройдена авторизация"),
             @ApiResponse(responseCode = "403", description = "Недостаточно прав"),
@@ -147,7 +147,7 @@ public interface TransactionApi {
 
     @Operation(summary = "Удаление транзакции по id")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Транзакции получены"),
+            @ApiResponse(responseCode = "200", description = "Транзакция удалена"),
             @ApiResponse(responseCode = "400", description = "Ошибка валидации"),
             @ApiResponse(responseCode = "401", description = "Не пройдена авторизация"),
             @ApiResponse(responseCode = "403", description = "Недостаточно прав"),
