@@ -34,6 +34,7 @@ public class Transaction {
     private Instant lastUpdateDate;
 
     @ManyToOne
+    @JoinColumn(referencedColumnName = "id", name = "account_id")
     private Account account;
 
     @Column(name = "date")

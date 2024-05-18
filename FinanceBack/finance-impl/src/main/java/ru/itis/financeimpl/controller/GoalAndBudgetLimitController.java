@@ -1,6 +1,7 @@
 package ru.itis.financeimpl.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.RestController;
 import ru.itis.financeapi.api.GoalAndBudgetLimitApi;
 import ru.itis.financeapi.dto.request.GoalAndBudgetLimitCreateRequest;
@@ -18,27 +19,27 @@ public class GoalAndBudgetLimitController implements GoalAndBudgetLimitApi {
     private final GoalAndBudgetLimitService service;
 
     @Override
-    public void create(GoalAndBudgetLimitCreateRequest saveRequest) {
-        service.create(saveRequest);
+    public void create(GoalAndBudgetLimitCreateRequest saveRequest, UserDetails userDetails) {
+        service.create(saveRequest, userDetails.getUsername());
     }
 
     @Override
-    public Set<GoalAndBudgetLimitResponse> getAllCurrent() {
-        return service.getAllCurrent();
+    public Set<GoalAndBudgetLimitResponse> getAllCurrent(UserDetails userDetails) {
+        return service.getAllCurrent(userDetails.getUsername());
     }
 
     @Override
-    public Set<GoalAndBudgetLimitWithProgressResponse> getAllCurrentWithProgress() {
-        return service.getAllCurrentWithProgress();
+    public Set<GoalAndBudgetLimitWithProgressResponse> getAllCurrentWithProgress(UserDetails userDetails) {
+        return service.getAllCurrentWithProgress(userDetails.getUsername());
     }
 
     @Override
-    public void update(GoalAndBudgetLimitUpdateRequest updateRequest) {
-        service.update(updateRequest);
+    public void update(GoalAndBudgetLimitUpdateRequest updateRequest, UserDetails userDetails) {
+        service.update(updateRequest, userDetails.getUsername());
     }
 
     @Override
-    public void delete(UUID id) {
-        service.delete(id);
+    public void delete(UUID id, UserDetails userDetails) {
+        service.delete(id, userDetails.getUsername());
     }
 }

@@ -13,6 +13,36 @@ spring:
       username: admin
       maximum-pool-size: 20
       jdbc-url: jdbc:postgresql://localhost:5432/agona
+  mail:
+    host:
+      smtp.gmail.com
+    port:
+      587
+    username:
+      beerok546@gmail.com
+    password:
+      bpzlnkikhqpqvwwu
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable:
+              true
+            allow8bit-mime:
+              true
+          ssl:
+            trust:
+              smtp.gmail.com
+        debug:
+          true
+  logger:
+    enabled:
+      true
+jwt:
+  expiration:
+    access:
+      millis: 360000
+  secret:
+    32wADAS1vnn2321fvsGENbsnbdnskbESFEGVESBVSBFEREAWEVDVEGEVETEVESGESFSEGVSGESF23w32423423432
+    
 
-server:
-  port: 8081

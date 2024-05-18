@@ -1,9 +1,8 @@
 package ru.itis.financeapi.dto.request;
 
 public record AccountSaveRequest(
-        String first_name,
-        String last_name,
+        String firstName,
+        String lastName,
         String email,
-        String password
-) {
+        String password) {
 }

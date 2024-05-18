@@ -14,7 +14,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Table(name = "account")
 public class Account {
-
+  
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
@@ -37,4 +37,8 @@ public class Account {
 
     @OneToMany(mappedBy = "account")
     private List<BudgetDistributionRule> rules;
+
+    @Column(name = "role")
+    @Enumerated(EnumType.STRING)
+    private Role role;
 }
