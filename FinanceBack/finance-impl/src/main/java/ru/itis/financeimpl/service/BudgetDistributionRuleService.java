@@ -8,11 +8,11 @@ import java.util.Set;
 import java.util.UUID;
 
 public interface BudgetDistributionRuleService {
-    void create(BudgetDistributionRuleSaveRequest saveRequest);
+    void create(BudgetDistributionRuleSaveRequest saveRequest, String email);
 
-    void update(BudgetDistributionRuleUpdateRequest updateRequest);
+    void update(BudgetDistributionRuleUpdateRequest updateRequest, String email);
 
-    Set<BudgetDistributionRuleResponse> getAll();
+    Set<BudgetDistributionRuleResponse> getAll(String email);
 
-    void delete(UUID id);
+    void delete(UUID id, String email);
 }

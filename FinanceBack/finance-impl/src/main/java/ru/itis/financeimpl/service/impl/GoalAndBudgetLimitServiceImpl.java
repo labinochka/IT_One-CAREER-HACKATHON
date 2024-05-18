@@ -98,7 +98,9 @@ public class GoalAndBudgetLimitServiceImpl implements GoalAndBudgetLimitService 
         if (!goalAndBudgetLimit.getAccount().getId().equals(accountId)){
             throw new NoAccessException();
         }
-        goalAndLimitRepository.save(mapper.fromRequest(updateRequest));
+        GoalAndBudgetLimit result = mapper.fromRequest(updateRequest);
+        result.setId(goalAndBudgetLimit.getId());
+        goalAndLimitRepository.save(result);
     }
 
     @Override

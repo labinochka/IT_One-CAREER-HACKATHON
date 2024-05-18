@@ -4,6 +4,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import ru.itis.financeapi.dto.request.BudgetDistributionRuleSaveRequest;
 import ru.itis.financeapi.dto.request.BudgetDistributionRuleUpdateRequest;
@@ -24,7 +26,7 @@ public interface BudgetDistributionRuleApi {
             @ApiResponse(responseCode = "403", description = "Недостаточно прав"),
             @ApiResponse(responseCode = "500", description = "Ведутся технические работы")
     })
-    void create(BudgetDistributionRuleSaveRequest saveRequest);
+    void create(BudgetDistributionRuleSaveRequest saveRequest, @AuthenticationPrincipal UserDetails userDetails);
 
     @PatchMapping
     @Operation(summary = "Обновление правила распределения бюджета", method = "update")
@@ -35,7 +37,7 @@ public interface BudgetDistributionRuleApi {
             @ApiResponse(responseCode = "403", description = "Недостаточно прав"),
             @ApiResponse(responseCode = "500", description = "Ведутся технические работы")
     })
-    void update(BudgetDistributionRuleUpdateRequest updateRequest);
+    void update(BudgetDistributionRuleUpdateRequest updateRequest, @AuthenticationPrincipal UserDetails userDetails);
 
     @GetMapping
     @Operation(summary = "Получение правил распределения бюджета", method = "get-all")
@@ -46,7 +48,7 @@ public interface BudgetDistributionRuleApi {
             @ApiResponse(responseCode = "403", description = "Недостаточно прав"),
             @ApiResponse(responseCode = "500", description = "Ведутся технические работы")
     })
-    Set<BudgetDistributionRuleResponse> getAll();
+    Set<BudgetDistributionRuleResponse> getAll(@AuthenticationPrincipal UserDetails userDetails);
 
     @Operation(summary = "Удаления правила распределения бюджета", method = "delete-by-id")
     @ApiResponses(value = {
@@ -57,5 +59,5 @@ public interface BudgetDistributionRuleApi {
             @ApiResponse(responseCode = "500", description = "Ведутся технические работы")
     })
     @DeleteMapping
-    void delete(@RequestBody UUID id);
+    void delete(@RequestBody UUID id, @AuthenticationPrincipal UserDetails userDetails);
 }
