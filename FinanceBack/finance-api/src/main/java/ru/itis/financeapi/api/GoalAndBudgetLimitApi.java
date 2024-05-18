@@ -4,6 +4,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import ru.itis.financeapi.dto.request.GoalAndBudgetLimitCreateRequest;
 import ru.itis.financeapi.dto.request.GoalAndBudgetLimitUpdateRequest;
@@ -25,7 +27,7 @@ public interface GoalAndBudgetLimitApi {
             @ApiResponse(responseCode = "403", description = "Недостаточно прав"),
             @ApiResponse(responseCode = "500", description = "Ведутся технические работы")
     })
-    void create(GoalAndBudgetLimitCreateRequest saveRequest);
+    void create(GoalAndBudgetLimitCreateRequest saveRequest, @AuthenticationPrincipal UserDetails userDetails);
 
     @GetMapping("/all")
     @Operation(summary = "Получение целей и бюджетов", method = "get-all-current-goals-and-limits")
@@ -36,7 +38,7 @@ public interface GoalAndBudgetLimitApi {
             @ApiResponse(responseCode = "403", description = "Недостаточно прав"),
             @ApiResponse(responseCode = "500", description = "Ведутся технические работы")
     })
-    Set<GoalAndBudgetLimitResponse> getAllCurrent();
+    Set<GoalAndBudgetLimitResponse> getAllCurrent(@AuthenticationPrincipal UserDetails userDetails);
 
     @GetMapping("/all-with-progress")
     @Operation(summary = "Получение целей и бюджетов", method = "get-all-current-goals-and-limits-with-progress")
@@ -47,7 +49,8 @@ public interface GoalAndBudgetLimitApi {
             @ApiResponse(responseCode = "403", description = "Недостаточно прав"),
             @ApiResponse(responseCode = "500", description = "Ведутся технические работы")
     })
-    Set<GoalAndBudgetLimitWithProgressResponse> getAllCurrentWithProgress();
+    Set<GoalAndBudgetLimitWithProgressResponse> getAllCurrentWithProgress(
+            @AuthenticationPrincipal UserDetails userDetails);
 
     @PatchMapping
     @Operation(summary = "Обновление цели и бюджета", method = "update")
@@ -58,7 +61,7 @@ public interface GoalAndBudgetLimitApi {
             @ApiResponse(responseCode = "403", description = "Недостаточно прав"),
             @ApiResponse(responseCode = "500", description = "Ведутся технические работы")
     })
-    void update(GoalAndBudgetLimitUpdateRequest updateRequest);
+    void update(GoalAndBudgetLimitUpdateRequest updateRequest, @AuthenticationPrincipal UserDetails userDetails);
 
     @Operation(summary = "Удаление цели и бюджета по id", method = "delete-by-id")
     @ApiResponses(value = {
@@ -69,5 +72,5 @@ public interface GoalAndBudgetLimitApi {
             @ApiResponse(responseCode = "500", description = "Ведутся технические работы")
     })
     @DeleteMapping
-    void delete(@RequestBody UUID id);
+    void delete(@RequestBody UUID id, @AuthenticationPrincipal UserDetails userDetails);
 }
