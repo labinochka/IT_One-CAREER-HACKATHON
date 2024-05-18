@@ -7,9 +7,12 @@ spring:
     enabled: true
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/finance
+    url: jdbc:postgresql://localhost:5432/agona
     hikari:
-      password: password
-      username: postgres
+      password: admin
+      username: admin
       maximum-pool-size: 20
-      jdbc-url: jdbc:postgresql://localhost:5432/finance
+      jdbc-url: jdbc:postgresql://localhost:5432/agona
+
+server:
+  port: 8081

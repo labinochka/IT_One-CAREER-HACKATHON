@@ -6,6 +6,5 @@ public record BudgetDistributionRuleSaveRequest(
         int budget,
         int currentExpenses,
         String category
-
 ) {
 }
