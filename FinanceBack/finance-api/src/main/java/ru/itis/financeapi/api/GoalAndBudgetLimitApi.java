@@ -11,6 +11,7 @@ import ru.itis.financeapi.dto.response.GoalAndBudgetLimitResponse;
 import ru.itis.financeapi.dto.response.GoalAndBudgetLimitWithProgressResponse;
 
 import java.util.Set;
+import java.util.UUID;
 
 @Tag(name = "GoalAndLimitApi")
 @RequestMapping("api/v1/goalAndBudgetLimit")
@@ -59,7 +60,7 @@ public interface GoalAndBudgetLimitApi {
     })
     void update(GoalAndBudgetLimitUpdateRequest updateRequest);
 
-    @Operation(summary = "Удаление цели и бюджета по почте пользователя", method = "delete-by-user-mail")
+    @Operation(summary = "Удаление цели и бюджета по id", method = "delete-by-id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Цeль и бюджет удалены"),
             @ApiResponse(responseCode = "400", description = "Ошибка валидации"),
@@ -68,5 +69,5 @@ public interface GoalAndBudgetLimitApi {
             @ApiResponse(responseCode = "500", description = "Ведутся технические работы")
     })
     @DeleteMapping
-    void delete(@RequestBody String username);
+    void delete(@RequestBody UUID id);
 }

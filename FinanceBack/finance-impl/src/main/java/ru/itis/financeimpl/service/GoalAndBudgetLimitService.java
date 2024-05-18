@@ -6,6 +6,7 @@ import ru.itis.financeapi.dto.response.GoalAndBudgetLimitResponse;
 import ru.itis.financeapi.dto.response.GoalAndBudgetLimitWithProgressResponse;
 
 import java.util.Set;
+import java.util.UUID;
 
 public interface GoalAndBudgetLimitService {
     void create(GoalAndBudgetLimitCreateRequest saveRequest);
@@ -16,5 +17,5 @@ public interface GoalAndBudgetLimitService {
 
     void update(GoalAndBudgetLimitUpdateRequest updateRequest);
 
-    void delete(String username);
+    void delete(UUID id);
 }
