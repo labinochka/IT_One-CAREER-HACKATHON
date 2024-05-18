@@ -18,7 +18,7 @@ public class AccountController implements AccountApi {
 
     @Override
     public void create(AccountSaveRequest accountSaveRequest) {
-
+        accountService.create(accountSaveRequest);
     }
 
     @Override
@@ -28,7 +28,6 @@ public class AccountController implements AccountApi {
 
     @Override
     public void update(UUID id, AccountUpdateRequest accountUpdateRequest) {
-
     }
 
     @Override

@@ -2,6 +2,7 @@ package ru.itis.financeimpl.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.itis.financeapi.dto.request.AccountSaveRequest;
 import ru.itis.financeapi.dto.response.AccountResponse;
 import ru.itis.financeimpl.exception.AccountNotFoundException;
 import ru.itis.financeimpl.mapper.AccountMapper;
@@ -16,9 +17,15 @@ public class AccountServiceImpl implements AccountService {
     private final AccountMapper accountMapper;
 
     @Override
+    public void create(AccountSaveRequest saveRequest) {
+        accountRepository.save(accountMapper.toEntity(saveRequest));
+    }
+
+    @Override
     public AccountResponse findByEmail(String email) {
-        return accountRepository.findByEmail(email).map(accountMapper::toResponse).orElseThrow(
-                () -> new AccountNotFoundException(email)
+        return accountRepository.findByEmail(email)
+                .map(accountMapper::toResponse)
+                .orElseThrow(() -> new AccountNotFoundException(email)
         );
     }
 }
