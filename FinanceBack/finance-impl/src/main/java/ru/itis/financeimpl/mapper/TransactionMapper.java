@@ -12,6 +12,9 @@ public interface TransactionMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "isEditable", ignore = true)
+    @Mapping(target = "createDate", ignore = true)
+    @Mapping(target = "lastUpdateDate", ignore = true)
+    @Mapping(target = "account", ignore = true)
     Transaction toEntity(TransactionRequest request);
 
     TransactionResponse toResponse(Transaction transaction);
