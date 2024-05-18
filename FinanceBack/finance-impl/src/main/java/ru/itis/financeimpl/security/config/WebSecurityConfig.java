@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -30,6 +31,8 @@ public class WebSecurityConfig {
     private static final String LOGIN_PAGE = "/login";
     private static final String LOGIN_PROCESSING_URL = "/sign-in";
     private static final String USER_CREATE = "/api/v1/account/";
+    private static final String[] SWAGGER_URLS = { "/swagger-ui/**", "/v3/api-docs/**", "/v2/api-docs/**",
+            "/swagger-resources/**", "/swagger-ui.html", "/webjars/**" };
     private static final String[] PERMIT_ALL = { LOGIN_PROCESSING_URL, LOGIN_PAGE, USER_CREATE};
     private static final String[] AUTHENTICATED = { "/api/**" };
     private static final String[] IGNORE = { };
@@ -47,14 +50,10 @@ public class WebSecurityConfig {
                 )
                 .authorizeHttpRequests(request -> request
                         .requestMatchers(PERMIT_ALL).permitAll()
+                        .requestMatchers(SWAGGER_URLS).permitAll()
                         .requestMatchers(HttpMethod.POST,"/api/v1/account").permitAll()
-                        .requestMatchers("/swagger-ui/**").permitAll()
                         .requestMatchers(AUTHENTICATED).authenticated()
                 )
-//                .formLogin(formLogin -> formLogin
-//                    .usernameParameter(USERNAME_PARAMETER)
-//                    .passwordParameter(PASSWORD_PARAMETER)
-//                )
                 .formLogin(AbstractHttpConfigurer::disable)
                 .addFilterAfter(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .build();
