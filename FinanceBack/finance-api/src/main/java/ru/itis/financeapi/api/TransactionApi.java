@@ -41,10 +41,10 @@ public interface TransactionApi {
             @ApiResponse(responseCode = "403", description = "Недостаточно прав"),
             @ApiResponse(responseCode = "500", description = "Ведутся технические работы")
     })
-    @GetMapping("/category")
+    @GetMapping("/category/{category}")
     Page<TransactionResponse> getByCategory(@RequestParam(defaultValue = "0") int offset,
                                             @RequestParam(defaultValue = "10") int limit,
-                                            String category);
+                                            @PathVariable("category") String category);
 
     @Operation(summary = "Получение транзакций по дате")
     @ApiResponses(value = {
@@ -54,10 +54,10 @@ public interface TransactionApi {
             @ApiResponse(responseCode = "403", description = "Недостаточно прав"),
             @ApiResponse(responseCode = "500", description = "Ведутся технические работы")
     })
-    @GetMapping("/date")
+    @GetMapping("/date/{date}")
     Page<TransactionResponse> getByDate(@RequestParam(defaultValue = "0") int offset,
                                         @RequestParam(defaultValue = "10") int limit,
-                                        Instant date);
+                                        @PathVariable("date") Instant date);
 
     @Operation(summary = "Получение транзакций по месяцу")
     @ApiResponses(value = {
@@ -67,11 +67,11 @@ public interface TransactionApi {
             @ApiResponse(responseCode = "403", description = "Недостаточно прав"),
             @ApiResponse(responseCode = "500", description = "Ведутся технические работы")
     })
-    @GetMapping("/month")
+    @GetMapping("/month/{month}/{year}")
     Page<TransactionResponse> getByMonth(@RequestParam(defaultValue = "0") int offset,
                                          @RequestParam(defaultValue = "10") int limit,
-                                         String month,
-                                         int year);
+                                         @PathVariable("month") String month,
+                                         @PathVariable("year") int year);
 
     @Operation(summary = "Получение транзакций по году")
     @ApiResponses(value = {
@@ -81,10 +81,10 @@ public interface TransactionApi {
             @ApiResponse(responseCode = "403", description = "Недостаточно прав"),
             @ApiResponse(responseCode = "500", description = "Ведутся технические работы")
     })
-    @GetMapping("/year")
+    @GetMapping("/year/{year}")
     Page<TransactionResponse> getByYear(@RequestParam(defaultValue = "0") int offset,
                                         @RequestParam(defaultValue = "10") int limit,
-                                        int year);
+                                        @PathVariable("year") int year);
 
     @Operation(summary = "Получение транзакций по типу транзакции")
     @ApiResponses(value = {
@@ -94,10 +94,10 @@ public interface TransactionApi {
             @ApiResponse(responseCode = "403", description = "Недостаточно прав"),
             @ApiResponse(responseCode = "500", description = "Ведутся технические работы")
     })
-    @GetMapping("/transactionalType")
+    @GetMapping("/transactionalType/{transactionalType}")
     Page<TransactionResponse> getByTransactionalType(@RequestParam(defaultValue = "0") int offset,
                                                      @RequestParam(defaultValue = "10") int limit,
-                                                     String type);
+                                                     @PathVariable("transactionalType") String type);
 
     @Operation(summary = "Создание транзакции")
     @ApiResponses(value = {
@@ -118,8 +118,8 @@ public interface TransactionApi {
             @ApiResponse(responseCode = "403", description = "Недостаточно прав"),
             @ApiResponse(responseCode = "500", description = "Ведутся технические работы")
     })
-    @PutMapping
-    void updateById(UUID id, TransactionRequest request);
+    @PutMapping("/{id}")
+    void updateById(@PathVariable("id") UUID id, TransactionRequest request);
 
     @Operation(summary = "Удаление транзакции по id")
     @ApiResponses(value = {
@@ -129,6 +129,6 @@ public interface TransactionApi {
             @ApiResponse(responseCode = "403", description = "Недостаточно прав"),
             @ApiResponse(responseCode = "500", description = "Ведутся технические работы")
     })
-    @DeleteMapping
-    void deleteById(UUID id);
+    @DeleteMapping("/{id}")
+    void deleteById(@PathVariable("id") UUID id);
 }

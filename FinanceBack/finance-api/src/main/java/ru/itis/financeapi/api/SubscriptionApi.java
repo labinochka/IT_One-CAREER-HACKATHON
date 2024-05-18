@@ -46,7 +46,7 @@ public interface SubscriptionApi {
             @ApiResponse(responseCode = "403", description = "Недостаточно прав"),
             @ApiResponse(responseCode = "500", description = "Ведутся технические работы")
     })
-    @PutMapping("{/id}")
+    @PutMapping("/{id}")
     void update(@PathVariable("id") UUID id, @RequestBody SubscriptionUpdateRequest subscriptionUpdateRequest);
 
     @Operation(summary = "Удаление подписки по id", method = "delete-by-id")
