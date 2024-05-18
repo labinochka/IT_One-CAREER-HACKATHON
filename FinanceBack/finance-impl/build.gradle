@@ -5,6 +5,7 @@ dependencies {
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.5.Final'
     implementation 'org.liquibase:liquibase-core:4.27.0'
     implementation "org.springframework.boot:spring-boot-starter-mail"
+    implementation 'ru.itis:logger-starter:1.0.0-SNAPSHOT'
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.5.Final'
     // security json token
     implementation("io.jsonwebtoken:jjwt-api:0.11.5")
