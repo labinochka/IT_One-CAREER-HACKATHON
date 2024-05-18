@@ -11,6 +11,7 @@ import ru.itis.financeapi.dto.response.TransactionResponse;
 import ru.itis.financeimpl.exception.NoAccessException;
 import ru.itis.financeimpl.exception.TransactionNotFoundException;
 import ru.itis.financeimpl.mapper.TransactionMapper;
+import ru.itis.financeimpl.model.Account;
 import ru.itis.financeimpl.model.Transaction;
 import ru.itis.financeimpl.repository.TransactionRepository;
 import ru.itis.financeimpl.service.TransactionService;
@@ -66,6 +67,7 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public UUID create(TransactionRequest request) {
         Transaction transaction = mapper.toEntity(request);
+        transaction.setAccount(new Account());
         transaction.setEditable(true);
         return repository.save(transaction).getId();
     }
