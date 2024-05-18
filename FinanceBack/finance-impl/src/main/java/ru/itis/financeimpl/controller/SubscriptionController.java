@@ -20,8 +20,7 @@ public class SubscriptionController implements SubscriptionApi {
     @Override
     public void add(SubscriptionSaveRequest subscriptionRequest) {
         subscriptionService.save(subscriptionRequest);
-    }
-
+        
     @Override
     public List<SubscriptionResponse> getAllByAccountId(UUID accountId) {
         return subscriptionService.findAllByAccountId(accountId);
