@@ -26,22 +26,21 @@ spring:
       mail:
         smtp:
           starttls:
-            enable:
-              true
-            allow8bit-mime:
-              true
+            enable: true
+            allow8bit-mime: true
           ssl:
-            trust:
-              smtp.gmail.com
-        debug:
-          true
-  logger:
-    enabled:
-      true
+            trust: smtp.gmail.com
+        debug: true
+
 jwt:
   expiration:
     access:
       millis: 360000
   secret:
     32wADAS1vnn2321fvsGENbsnbdnskbESFEGVESBVSBFEREAWEVDVEGEVETEVESGESFSEGVSGESF23w32423423432
+
+finance:
+  logger:
+    enabled:
+      true
     

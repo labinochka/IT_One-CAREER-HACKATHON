@@ -39,7 +39,7 @@ public class TransactionServiceImpl implements TransactionService {
                 .orElseThrow(()-> new AccountNotFoundException(email));
         UUID accountId = account.getId();
         return mapper.toResponse(
-                transactionRepository.findAllByAccount_Id(
+                transactionRepository.findAllByAccountId(
                         accountId,
                         PageRequest.of(offset, limit, Sort.by(Sort.Direction.DESC, "date"))
                 )
@@ -52,7 +52,7 @@ public class TransactionServiceImpl implements TransactionService {
                 .orElseThrow(()-> new AccountNotFoundException(email));
         UUID accountId = account.getId();
         Pageable pageable = PageRequest.of(offset, limit);
-        return mapper.toResponse(transactionRepository.findAllByCategoryAndAccount_Id(category, pageable, accountId));
+        return mapper.toResponse(transactionRepository.findAllByCategoryAndAccountId(category, pageable, accountId));
     }
 
     @Override
@@ -61,7 +61,7 @@ public class TransactionServiceImpl implements TransactionService {
                 .orElseThrow(()-> new AccountNotFoundException(email));
         UUID accountId = account.getId();
         Pageable pageable = PageRequest.of(offset, limit);
-        return mapper.toResponse(transactionRepository.findAllByDateAndAccount_Id(date, pageable, accountId));
+        return mapper.toResponse(transactionRepository.findAllByDateAndAccountId(date, pageable, accountId));
     }
 
     @Override
@@ -70,7 +70,7 @@ public class TransactionServiceImpl implements TransactionService {
                 .orElseThrow(()-> new AccountNotFoundException(email));
         UUID accountId = account.getId();
         Pageable pageable = PageRequest.of(offset, limit);
-        return mapper.toResponse(transactionRepository.findAllByMonthAndYearAndAccount_Id(month, year, pageable, accountId));
+        return mapper.toResponse(transactionRepository.findAllByMonthAndYearAndAccountId(month, year, pageable, accountId));
     }
 
     @Override
@@ -79,7 +79,7 @@ public class TransactionServiceImpl implements TransactionService {
                 .orElseThrow(()-> new AccountNotFoundException(email));
         UUID accountId = account.getId();
         Pageable pageable = PageRequest.of(offset, limit);
-        return mapper.toResponse(transactionRepository.findAllByYearAndAccount_Id(year, pageable, accountId));
+        return mapper.toResponse(transactionRepository.findAllByYearAndAccountId(year, pageable, accountId));
     }
 
     @Override
@@ -90,7 +90,7 @@ public class TransactionServiceImpl implements TransactionService {
         UUID accountId = account.getId();
         Pageable pageable = PageRequest.of(offset, limit);
         return mapper.toResponse(
-                transactionRepository.findAllByTransactionalTypeAndAccount_Id(transactionalType, pageable, accountId)
+                transactionRepository.findAllByTransactionalTypeAndAccountId(transactionalType, pageable, accountId)
         );
     }
 
@@ -100,7 +100,7 @@ public class TransactionServiceImpl implements TransactionService {
                 .orElseThrow(()-> new AccountNotFoundException(email));
         UUID accountId = account.getId();
         List<TransactionResponse> list =
-                transactionRepository.findAllByDateBetweenAndAccount_Id(startDate, endDate, accountId)
+                transactionRepository.findAllByDateBetweenAndAccountId(startDate, endDate, accountId)
                         .stream()
                         .map(mapper::toResponse)
                         .toList();

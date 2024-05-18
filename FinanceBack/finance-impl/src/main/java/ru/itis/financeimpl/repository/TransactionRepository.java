@@ -15,22 +15,23 @@ import java.util.UUID;
 @Repository
 public interface TransactionRepository extends JpaRepository<Transaction, UUID> {
 
-    Page<Transaction> findAllByAccount_Id(UUID account_id, Pageable pageable);
+    Page<Transaction> findAllByAccountId(UUID account_id, Pageable pageable);
 
-    Page<Transaction> findAllByCategoryAndAccount_Id(String category, Pageable pageable, UUID accountId);
+    Page<Transaction> findAllByCategoryAndAccountId(String category, Pageable pageable, UUID accountId);
 
-    Page<Transaction> findAllByDateAndAccount_Id(Instant date, Pageable pageable, UUID accountId);
+    Page<Transaction> findAllByDateAndAccountId(Instant date, Pageable pageable, UUID accountId);
 
-    @Query("SELECT t FROM Transaction t WHERE YEAR(t.date) = :year AND MONTH(t.date) = :month")
-    Page<Transaction> findAllByMonthAndYearAndAccount_Id(@Param("year") int month,
+    @Query("SELECT t FROM Transaction t WHERE YEAR(t.date) = :year AND MONTH(t.date) = :month AND " +
+            "t.account.id = :accountId")
+    Page<Transaction> findAllByMonthAndYearAndAccountId(@Param("year") int month,
                                                          @Param("month") int year,
                                                          Pageable pageable,
-                                                         UUID accountId);
+                                                         @Param("accountId") UUID accountId);
 
-    @Query("SELECT t FROM Transaction t WHERE YEAR(t.date) = :yearh")
-    Page<Transaction> findAllByYearAndAccount_Id(@Param("year") int year, Pageable pageable, UUID accountId);
+    @Query("SELECT t FROM Transaction t WHERE YEAR(t.date) = :yearh AND t.account.id = :accountId")
+    Page<Transaction> findAllByYearAndAccountId(@Param("year") int year, Pageable pageable, UUID accountId);
 
-    Page<Transaction> findAllByTransactionalTypeAndAccount_Id(String type, Pageable pageable, UUID accountId);
+    Page<Transaction> findAllByTransactionalTypeAndAccountId(String type, Pageable pageable, UUID accountId);
 
-    List<Transaction> findAllByDateBetweenAndAccount_Id(Instant startDate, Instant endDate, UUID accountId);
+    List<Transaction> findAllByDateBetweenAndAccountId(Instant startDate, Instant endDate, UUID accountId);
 }
