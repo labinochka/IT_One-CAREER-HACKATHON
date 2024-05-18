@@ -13,3 +13,26 @@ spring:
       username: postgres
       maximum-pool-size: 20
       jdbc-url: jdbc:postgresql://localhost:5432/finance
+
+  mail:
+    host:
+      smtp.gmail.com
+    port:
+      587
+    username:
+      beerok546@gmail.com
+    password:
+      bpzlnkikhqpqvwwu
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable:
+              true
+            allow8bit-mime:
+              true
+          ssl:
+            trust:
+              smtp.gmail.com
+        debug:
+          true
