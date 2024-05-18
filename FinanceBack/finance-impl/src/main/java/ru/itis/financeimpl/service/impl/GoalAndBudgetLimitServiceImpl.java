@@ -42,7 +42,7 @@ public class GoalAndBudgetLimitServiceImpl implements GoalAndBudgetLimitService 
         Account account = accountRepository.findByEmail(email)
                 .orElseThrow(() -> new AccountNotFoundException(email));
         UUID accountId = account.getId();
-        List<GoalAndBudgetLimit> list = goalAndLimitRepository.findAllByAccount_Id(accountId)
+        List<GoalAndBudgetLimit> list = goalAndLimitRepository.findAllByAccountId(accountId)
                 .orElseThrow(GoalAndBudgetLimitNotFoundException::new);
         List<GoalAndBudgetLimitResponse> result = list.stream()
                 .map(mapper::toResponse)

@@ -7,12 +7,12 @@ spring:
     enabled: true
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/finance
+    url: jdbc:postgresql://localhost:5432/agona
     hikari:
-      password: password
-      username: postgres
+      password: admin
+      username: admin
       maximum-pool-size: 20
-      jdbc-url: jdbc:postgresql://localhost:5432/finance
+      jdbc-url: jdbc:postgresql://localhost:5432/agona
   mail:
     host:
       smtp.gmail.com
@@ -38,9 +38,14 @@ jwt:
       millis: 360000
   secret:
     32wADAS1vnn2321fvsGENbsnbdnskbESFEGVESBVSBFEREAWEVDVEGEVETEVESGESFSEGVSGESF23w32423423432
+<<<<<<< HEAD
 
 finance:
   logger:
     enabled:
       true
     
+=======
+    
+
+>>>>>>> 5ed848aeee15f45158ce392913b25b6ee00dadd7

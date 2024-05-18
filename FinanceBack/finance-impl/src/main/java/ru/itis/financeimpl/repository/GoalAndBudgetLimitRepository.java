@@ -9,5 +9,5 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface GoalAndBudgetLimitRepository extends JpaRepository<GoalAndBudgetLimit, UUID> {
-    Optional<List<GoalAndBudgetLimit>> findAllByAccount_Id(UUID accountId);
+    Optional<List<GoalAndBudgetLimit>> findAllByAccountId(UUID accountId);
 }
