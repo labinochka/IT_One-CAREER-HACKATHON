@@ -34,4 +34,7 @@ public class Account {
 
     @OneToMany(mappedBy = "account")
     private List<GoalAndBudgetLimit> goalsAndLimits;
+
+    @OneToMany(mappedBy = "account")
+    private List<BudgetDistributionRule> rules;
 }
