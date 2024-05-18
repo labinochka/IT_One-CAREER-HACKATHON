@@ -2,7 +2,7 @@ package ru.itis.financeapi.dto.response;
 
 import java.time.Instant;
 
-public record GoalAndBudgetWithProgressResponse(
+public record GoalAndBudgetLimitWithProgressResponse(
         int makeMoneyGoal,
         int spendMoneyGoal,
         int budgetLimit,

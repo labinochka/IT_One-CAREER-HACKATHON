@@ -7,10 +7,11 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 import ru.itis.financeapi.dto.request.GoalAndBudgetLimitCreateRequest;
 import ru.itis.financeapi.dto.request.GoalAndBudgetLimitUpdateRequest;
-import ru.itis.financeapi.dto.response.GoalAndBudgetResponse;
-import ru.itis.financeapi.dto.response.GoalAndBudgetWithProgressResponse;
+import ru.itis.financeapi.dto.response.GoalAndBudgetLimitResponse;
+import ru.itis.financeapi.dto.response.GoalAndBudgetLimitWithProgressResponse;
 
 import java.util.Set;
+import java.util.UUID;
 
 @Tag(name = "GoalAndLimitApi")
 @RequestMapping("api/v1/goalAndBudgetLimit")
@@ -35,7 +36,7 @@ public interface GoalAndBudgetLimitApi {
             @ApiResponse(responseCode = "403", description = "Недостаточно прав"),
             @ApiResponse(responseCode = "500", description = "Ведутся технические работы")
     })
-    Set<GoalAndBudgetResponse> getAllCurrent();
+    Set<GoalAndBudgetLimitResponse> getAllCurrent();
 
     @GetMapping("/all-with-progress")
     @Operation(summary = "Получение целей и бюджетов", method = "get-all-current-goals-and-limits-with-progress")
@@ -46,7 +47,7 @@ public interface GoalAndBudgetLimitApi {
             @ApiResponse(responseCode = "403", description = "Недостаточно прав"),
             @ApiResponse(responseCode = "500", description = "Ведутся технические работы")
     })
-    Set<GoalAndBudgetWithProgressResponse> getAllCurrentWithProgress();
+    Set<GoalAndBudgetLimitWithProgressResponse> getAllCurrentWithProgress();
 
     @PatchMapping
     @Operation(summary = "Обновление цели и бюджета", method = "update")
@@ -59,7 +60,7 @@ public interface GoalAndBudgetLimitApi {
     })
     void update(GoalAndBudgetLimitUpdateRequest updateRequest);
 
-    @Operation(summary = "Удаление цели и бюджета по почте пользователя", method = "delete-by-user-mail")
+    @Operation(summary = "Удаление цели и бюджета по id", method = "delete-by-id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Цeль и бюджет удалены"),
             @ApiResponse(responseCode = "400", description = "Ошибка валидации"),
@@ -68,5 +69,5 @@ public interface GoalAndBudgetLimitApi {
             @ApiResponse(responseCode = "500", description = "Ведутся технические работы")
     })
     @DeleteMapping
-    void delete(@RequestBody String username);
+    void delete(@RequestBody UUID id);
 }
