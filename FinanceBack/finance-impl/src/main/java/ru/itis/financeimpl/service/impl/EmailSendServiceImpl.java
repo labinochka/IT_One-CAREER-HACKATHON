@@ -26,9 +26,11 @@ public class EmailSendServiceImpl implements EmailSendService {
     public void checkSubscription() {
         List<Subscription> subscriptions = repository.findAll();
 
-        for (Subscription subscription : subscriptions) {
-            if (subscription.getEndDate().isBefore(Instant.from(LocalDateTime.now().plusDays(2)))) {
-                sendEmailNotification(subscription);
+        if (!subscriptions.isEmpty()) {
+            for (Subscription subscription : subscriptions) {
+                if (subscription.getEndDate().isBefore(Instant.from(LocalDateTime.now().plusDays(2)))) {
+                    sendEmailNotification(subscription);
+                }
             }
         }
     }
