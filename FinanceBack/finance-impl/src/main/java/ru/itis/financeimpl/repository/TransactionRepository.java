@@ -15,17 +15,22 @@ import java.util.UUID;
 @Repository
 public interface TransactionRepository extends JpaRepository<Transaction, UUID> {
 
-    Page<Transaction> findAllByCategory(String category, Pageable pageable);
+    Page<Transaction> findAllByAccount_Id(UUID account_id, Pageable pageable);
 
-    Page<Transaction> findAllByDate(Instant date, Pageable pageable);
+    Page<Transaction> findAllByCategoryAndAccount_Id(String category, Pageable pageable, UUID accountId);
+
+    Page<Transaction> findAllByDateAndAccount_Id(Instant date, Pageable pageable, UUID accountId);
 
     @Query("SELECT t FROM Transaction t WHERE YEAR(t.date) = :year AND MONTH(t.date) = :month")
-    Page<Transaction> findAllByMonthAndYear(@Param("year") int month, @Param("month") int year, Pageable pageable);
+    Page<Transaction> findAllByMonthAndYearAndAccount_Id(@Param("year") int month,
+                                                         @Param("month") int year,
+                                                         Pageable pageable,
+                                                         UUID accountId);
 
     @Query("SELECT t FROM Transaction t WHERE YEAR(t.date) = :yearh")
-    Page<Transaction> findAllByYear(@Param("year") int year, Pageable pageable);
+    Page<Transaction> findAllByYearAndAccount_Id(@Param("year") int year, Pageable pageable, UUID accountId);
 
-    Page<Transaction> findAllByTransactionalType(String type, Pageable pageable);
+    Page<Transaction> findAllByTransactionalTypeAndAccount_Id(String type, Pageable pageable, UUID accountId);
 
-    List<Transaction> findAllByDateBetween(Instant startDate, Instant endDate);
+    List<Transaction> findAllByDateBetweenAndAccount_Id(Instant startDate, Instant endDate, UUID accountId);
 }

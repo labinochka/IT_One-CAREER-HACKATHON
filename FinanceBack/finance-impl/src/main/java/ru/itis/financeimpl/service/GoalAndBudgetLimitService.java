@@ -9,13 +9,13 @@ import java.util.Set;
 import java.util.UUID;
 
 public interface GoalAndBudgetLimitService {
-    void create(GoalAndBudgetLimitCreateRequest saveRequest);
+    void create(GoalAndBudgetLimitCreateRequest saveRequest, String email);
 
-    Set<GoalAndBudgetLimitResponse> getAllCurrent();
+    Set<GoalAndBudgetLimitResponse> getAllCurrent(String email);
 
-    Set<GoalAndBudgetLimitWithProgressResponse> getAllCurrentWithProgress();
+    Set<GoalAndBudgetLimitWithProgressResponse> getAllCurrentWithProgress(String email);
 
-    void update(GoalAndBudgetLimitUpdateRequest updateRequest);
+    void update(GoalAndBudgetLimitUpdateRequest updateRequest, String email);
 
-    void delete(UUID id);
+    void delete(UUID id, String email);
 }

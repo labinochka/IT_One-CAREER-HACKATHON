@@ -7,6 +7,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.tags.Tags;
 import org.springframework.data.domain.Page;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import ru.itis.financeapi.dto.request.TransactionRequest;
 import ru.itis.financeapi.dto.response.TransactionResponse;
@@ -32,7 +34,8 @@ public interface TransactionApi {
     })
     @GetMapping("/all")
     Page<TransactionResponse> getAll(@RequestParam(defaultValue = "0") int offset,
-                                     @RequestParam(defaultValue = "10") int limit);
+                                     @RequestParam(defaultValue = "10") int limit,
+                                     @AuthenticationPrincipal UserDetails userDetails);
 
     @Operation(summary = "Получение транзакций по категории")
     @ApiResponses(value = {
@@ -45,7 +48,8 @@ public interface TransactionApi {
     @GetMapping("/category/{category}")
     Page<TransactionResponse> getByCategory(@RequestParam(defaultValue = "0") int offset,
                                             @RequestParam(defaultValue = "10") int limit,
-                                            @PathVariable("category") String category);
+                                            @PathVariable("category") String category,
+                                            @AuthenticationPrincipal UserDetails userDetails);
 
     @Operation(summary = "Получение транзакций по дате")
     @ApiResponses(value = {
@@ -58,7 +62,8 @@ public interface TransactionApi {
     @GetMapping("/date/{date}")
     Page<TransactionResponse> getByDate(@RequestParam(defaultValue = "0") int offset,
                                         @RequestParam(defaultValue = "10") int limit,
-                                        @PathVariable("date") Instant date);
+                                        @PathVariable("date") Instant date,
+                                        @AuthenticationPrincipal UserDetails userDetails);
 
     @Operation(summary = "Получение транзакций по месяцу")
     @ApiResponses(value = {
@@ -72,7 +77,8 @@ public interface TransactionApi {
     Page<TransactionResponse> getByMonth(@RequestParam(defaultValue = "0") int offset,
                                          @RequestParam(defaultValue = "10") int limit,
                                          @PathVariable("month") int month,
-                                         @PathVariable("year") int year);
+                                         @PathVariable("year") int year,
+                                         @AuthenticationPrincipal UserDetails userDetails);
 
     @Operation(summary = "Получение транзакций по году")
     @ApiResponses(value = {
@@ -85,7 +91,8 @@ public interface TransactionApi {
     @GetMapping("/year/{year}")
     Page<TransactionResponse> getByYear(@RequestParam(defaultValue = "0") int offset,
                                         @RequestParam(defaultValue = "10") int limit,
-                                        @PathVariable("year") int year);
+                                        @PathVariable("year") int year,
+                                        @AuthenticationPrincipal UserDetails userDetails);
 
     @Operation(summary = "Получение транзакций по типу транзакции")
     @ApiResponses(value = {
@@ -98,7 +105,8 @@ public interface TransactionApi {
     @GetMapping("/transactionalType/{transactionalType}")
     Page<TransactionResponse> getByTransactionalType(@RequestParam(defaultValue = "0") int offset,
                                                      @RequestParam(defaultValue = "10") int limit,
-                                                     @PathVariable("transactionalType") String type);
+                                                     @PathVariable("transactionalType") String type,
+                                                     @AuthenticationPrincipal UserDetails userDetails);
 
     @Operation(summary = "Получение транзакций по конкретным срокам")
     @ApiResponses(value = {
@@ -109,7 +117,9 @@ public interface TransactionApi {
             @ApiResponse(responseCode = "500", description = "Ведутся технические работы")
     })
     @GetMapping("/date/customDate")
-    Set<TransactionResponse> getByDates(@RequestParam Instant startDate, @RequestParam Instant endDate);
+    Set<TransactionResponse> getByDates(@RequestParam Instant startDate,
+                                        @RequestParam Instant endDate,
+                                        @AuthenticationPrincipal UserDetails userDetails);
 
     @Operation(summary = "Создание транзакции")
     @ApiResponses(value = {
@@ -120,7 +130,7 @@ public interface TransactionApi {
             @ApiResponse(responseCode = "500", description = "Ведутся технические работы")
     })
     @PostMapping
-    UUID create(TransactionRequest request);
+    UUID create(@RequestBody TransactionRequest request, @AuthenticationPrincipal UserDetails userDetails);
 
     @Operation(summary = "Обновление транзакции по id")
     @ApiResponses(value = {
@@ -131,7 +141,9 @@ public interface TransactionApi {
             @ApiResponse(responseCode = "500", description = "Ведутся технические работы")
     })
     @PutMapping("/{id}")
-    void updateById(@PathVariable("id") UUID id, TransactionRequest request);
+    void updateById(@PathVariable("id") UUID id,
+                    @RequestBody TransactionRequest request,
+                    @AuthenticationPrincipal UserDetails userDetails);
 
     @Operation(summary = "Удаление транзакции по id")
     @ApiResponses(value = {
@@ -142,5 +154,5 @@ public interface TransactionApi {
             @ApiResponse(responseCode = "500", description = "Ведутся технические работы")
     })
     @DeleteMapping("/{id}")
-    void deleteById(@PathVariable("id") UUID id);
+    void deleteById(@PathVariable("id") UUID id, @AuthenticationPrincipal UserDetails userDetails);
 }

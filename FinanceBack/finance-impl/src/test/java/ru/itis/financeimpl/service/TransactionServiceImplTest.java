@@ -15,6 +15,7 @@ import ru.itis.financeapi.dto.response.TransactionResponse;
 import ru.itis.financeimpl.mapper.TransactionMapper;
 import ru.itis.financeimpl.model.Account;
 import ru.itis.financeimpl.model.Transaction;
+import ru.itis.financeimpl.repository.AccountRepository;
 import ru.itis.financeimpl.repository.TransactionRepository;
 import ru.itis.financeimpl.service.impl.TransactionServiceImpl;
 
@@ -27,25 +28,30 @@ import java.util.UUID;
 public class TransactionServiceImplTest {
 
     @Mock
-    private TransactionRepository repository;
+    private TransactionRepository transactionRepository;
+
+    @Mock
+    private AccountRepository accountRepository;
 
     @Mock
     private TransactionMapper mapper;
+
+    private final String email = "test@gmail.com";
 
     @InjectMocks
     private TransactionServiceImpl service;
 
     @BeforeEach
     public void setup() {
-        service = new TransactionServiceImpl(repository, mapper);
+        service = new TransactionServiceImpl(transactionRepository, accountRepository, mapper);
     }
 
     @Test
     public void shouldReturnAllTransactions() {
         Page<TransactionResponse> transactions = getTransactions();
-        Mockito.when(service.getAll(0, 10)).thenReturn(transactions);
-        Page<TransactionResponse> responses = service.getAll(0, 10);
+        Mockito.when(service.getAll(0, 10, "test@gmail.com")).thenReturn(transactions);
 
+        Page<TransactionResponse> responses = service.getAll(0, 10, "test@gmail.com");
         Assertions.assertNotNull(responses);
         Assertions.assertEquals(transactions.getSize(), responses.getSize());
     }
@@ -55,8 +61,8 @@ public class TransactionServiceImplTest {
         Page<TransactionResponse> transactions = getTransactions();
         String category = "продукты";
 
-        Mockito.when(service.getAll(0, 10)).thenReturn(transactions);
-        Page<TransactionResponse> responses = service.getByCategory(0, 10, category);
+        Mockito.when(service.getAll(0, 10, email)).thenReturn(transactions);
+        Page<TransactionResponse> responses = service.getByCategory(0, 10, category, email);
 
         Assertions.assertNotNull(responses);
         Assertions.assertEquals(1, responses.getTotalElements());
@@ -67,8 +73,8 @@ public class TransactionServiceImplTest {
         Page<TransactionResponse> transactions = getTransactions();
         String type = "пополнение";
 
-        Mockito.when(service.getAll(0, 10)).thenReturn(transactions);
-        Page<TransactionResponse> responses = service.getByTransactionalType(0, 10, type);
+        Mockito.when(service.getAll(0, 10, email)).thenReturn(transactions);
+        Page<TransactionResponse> responses = service.getByTransactionalType(0, 10, type, email);
 
         Assertions.assertNotNull(responses);
         Assertions.assertEquals(1, responses.getTotalElements());
@@ -78,7 +84,7 @@ public class TransactionServiceImplTest {
     public void shouldReturnUuid() {
         TransactionRequest transaction = new TransactionRequest(Instant.now(), 1000, "продукты",
                 "расход");
-        UUID response = service.create(transaction);
+        UUID response = service.create(transaction, email);
         Assertions.assertNotNull(response);
     }
 
