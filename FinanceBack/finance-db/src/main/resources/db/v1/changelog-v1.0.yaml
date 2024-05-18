@@ -14,3 +14,7 @@ databaseChangeLog:
   - include:
       file: DDL/20240518-add-constraint-fk-goal-and-limit-account.yml
       relativeToChangelogFile: true
+
+  - include:
+      file: DDL/20240518-add-role-for-account-db.sql
+      relativeToChangelogFile: true
