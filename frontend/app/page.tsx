@@ -71,16 +71,16 @@ export const Header = () => {
           <span className="sr-only">Acme Inc</span>
         </Link>
         <Link
-          href="#"
+          href="/"
           className="text-foreground transition-colors hover:text-foreground"
         >
           Дэшборд
         </Link>
         <Link
-          href="#"
+          href="/goals"
           className="text-muted-foreground transition-colors hover:text-foreground"
         >
-          Аналитика
+          Цели
         </Link>
       </nav>
       <Sheet>
