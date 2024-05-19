@@ -25,7 +25,7 @@ public interface SubscriptionApi {
             @ApiResponse(responseCode = "403", description = "Недостаточно прав"),
             @ApiResponse(responseCode = "500", description = "Ведутся технические работы")
     })
-    void add(SubscriptionSaveRequest subscriptionRequest);
+    void add(@RequestBody SubscriptionSaveRequest subscriptionRequest);
 
     @GetMapping("/account/{accountId}")
     @Operation(summary = "Получение всех подписок пользователя", method = "get-all")
