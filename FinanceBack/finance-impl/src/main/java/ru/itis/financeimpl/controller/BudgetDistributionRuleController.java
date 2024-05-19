@@ -2,6 +2,7 @@ package ru.itis.financeimpl.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import ru.itis.financeapi.api.BudgetDistributionRuleApi;
 import ru.itis.financeapi.dto.request.BudgetDistributionRuleSaveRequest;
 import ru.itis.financeapi.dto.request.BudgetDistributionRuleUpdateRequest;
@@ -13,6 +14,7 @@ import java.util.UUID;
 
 @Controller
 @RequiredArgsConstructor
+@CrossOrigin
 public class BudgetDistributionRuleController implements BudgetDistributionRuleApi {
     private final BudgetDistributionRuleService service;
 
