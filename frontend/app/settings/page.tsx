@@ -44,7 +44,7 @@ export default function SettingsPage() {
               </CardHeader>
               <CardContent>
                 <form>
-                  <Input placeholder="Store Name" />
+                  <Input placeholder="Название хранилища" />
                 </form>
               </CardContent>
               <CardFooter className="border-t px-6 py-4">
