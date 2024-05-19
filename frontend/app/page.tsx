@@ -95,6 +95,12 @@ export const Header = () => {
         >
           Цели
         </Link>
+        <Link
+          href="/settings"
+          className="text-muted-foreground transition-colors hover:text-foreground"
+        >
+          Настройки
+        </Link>
       </nav>
       <Sheet>
         <SheetTrigger asChild>
@@ -163,7 +169,9 @@ export const Header = () => {
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Мой аккаунт</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>Настройки</DropdownMenuItem>
+            <DropdownMenuItem>
+              <Link href={"/settings"}>Настройки</Link>
+            </DropdownMenuItem>
             <DropdownMenuItem>Поддержка</DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem>Выйти</DropdownMenuItem>
@@ -304,7 +312,7 @@ const Transactions = () => {
                               "hidden text-sm text-muted-foreground md:inline",
                               item.transactionalType === "payment"
                                 ? "text-green-400"
-                                : "text-red-400"
+                                : "text-red-400",
                             )}
                           >
                             {item.transactionalType}
