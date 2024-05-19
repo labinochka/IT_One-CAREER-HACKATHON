@@ -174,7 +174,9 @@ export const Header = () => {
             </DropdownMenuItem>
             <DropdownMenuItem>Поддержка</DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>Выйти</DropdownMenuItem>
+            <DropdownMenuItem>
+              <Link href={"/auth/logout"}>Выйти</Link>
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
