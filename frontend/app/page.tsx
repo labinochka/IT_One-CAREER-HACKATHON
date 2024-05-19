@@ -42,8 +42,21 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { api } from "@/shared/api";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { faker } from "@faker-js/faker";
+import { Skeleton } from "@/components/ui/skeleton";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
+import { cn } from "@/lib/utils";
+
 export default function Dashboard() {
   return (
     <div className="flex min-h-screen w-full flex-col">
@@ -59,7 +72,7 @@ export default function Dashboard() {
   );
 }
 
-const Header = () => {
+export const Header = () => {
   return (
     <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
       <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
@@ -215,9 +228,18 @@ const Stats = () => {
 };
 
 const Transactions = () => {
+  const [loading, setLoading] = useState(true);
+  const [transactions, setTransaction] = useState<any[]>([]);
+
   const getData = async () => {
-    const res = await api.get("/transaction/all");
-    return res.data;
+    try {
+      const res = await api.get("/transaction/all");
+      setTransaction(res.data.content);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -236,130 +258,148 @@ const Transactions = () => {
             size="sm"
             className="gap-1"
             onClick={async () => {
-              const res = await api.post("transaction", {
+              const payload = {
                 date: faker.date.recent(),
                 amount: Number(faker.finance.amount()),
-                category: faker.word.adverb(),
-                transactionalType: faker.word.conjunction(),
-              });
+                category: faker.word.noun(),
+                transactionalType: faker.finance.transactionType(),
+              };
+
+              await api.post("transaction", payload);
+              setTransaction([payload, ...transactions].slice(0, 10));
             }}
           >
             Добавить
           </Button>
-          <Button asChild size="sm" className="gap-1">
-            <Link href="#">
-              Посмотреть все
-              <ArrowUpRight className="h-4 w-4" />
-            </Link>
-          </Button>
         </div>
       </CardHeader>
       <CardContent>
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Получатель</TableHead>
-              <TableHead className="hidden xl:table-column">Тип</TableHead>
-              <TableHead className="hidden xl:table-column">Статус</TableHead>
-              <TableHead className="hidden xl:table-column">Дата</TableHead>
-              <TableHead className="text-right">Сумма</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            <TableRow>
-              <TableCell>
-                <div className="font-medium">Liam Johnson</div>
-                <div className="hidden text-sm text-muted-foreground md:inline">
-                  liam@example.com
-                </div>
-              </TableCell>
-              <TableCell className="hidden xl:table-column">Sale</TableCell>
-              <TableCell className="hidden xl:table-column">
-                <Badge className="text-xs" variant="outline">
-                  Approved
-                </Badge>
-              </TableCell>
-              <TableCell className="hidden md:table-cell lg:hidden xl:table-column">
-                2023-06-23
-              </TableCell>
-              <TableCell className="text-right">$250.00</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>
-                <div className="font-medium">Olivia Smith</div>
-                <div className="hidden text-sm text-muted-foreground md:inline">
-                  olivia@example.com
-                </div>
-              </TableCell>
-              <TableCell className="hidden xl:table-column">Refund</TableCell>
-              <TableCell className="hidden xl:table-column">
-                <Badge className="text-xs" variant="outline">
-                  Declined
-                </Badge>
-              </TableCell>
-              <TableCell className="hidden md:table-cell lg:hidden xl:table-column">
-                2023-06-24
-              </TableCell>
-              <TableCell className="text-right">$150.00</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>
-                <div className="font-medium">Noah Williams</div>
-                <div className="hidden text-sm text-muted-foreground md:inline">
-                  noah@example.com
-                </div>
-              </TableCell>
-              <TableCell className="hidden xl:table-column">
-                Subscription
-              </TableCell>
-              <TableCell className="hidden xl:table-column">
-                <Badge className="text-xs" variant="outline">
-                  Approved
-                </Badge>
-              </TableCell>
-              <TableCell className="hidden md:table-cell lg:hidden xl:table-column">
-                2023-06-25
-              </TableCell>
-              <TableCell className="text-right">$350.00</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>
-                <div className="font-medium">Emma Brown</div>
-                <div className="hidden text-sm text-muted-foreground md:inline">
-                  emma@example.com
-                </div>
-              </TableCell>
-              <TableCell className="hidden xl:table-column">Sale</TableCell>
-              <TableCell className="hidden xl:table-column">
-                <Badge className="text-xs" variant="outline">
-                  Approved
-                </Badge>
-              </TableCell>
-              <TableCell className="hidden md:table-cell lg:hidden xl:table-column">
-                2023-06-26
-              </TableCell>
-              <TableCell className="text-right">$450.00</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>
-                <div className="font-medium">Liam Johnson</div>
-                <div className="hidden text-sm text-muted-foreground md:inline">
-                  liam@example.com
-                </div>
-              </TableCell>
-              <TableCell className="hidden xl:table-column">Sale</TableCell>
-              <TableCell className="hidden xl:table-column">
-                <Badge className="text-xs" variant="outline">
-                  Approved
-                </Badge>
-              </TableCell>
-              <TableCell className="hidden md:table-cell lg:hidden xl:table-column">
-                2023-06-27
-              </TableCell>
-              <TableCell className="text-right">$550.00</TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
+        {loading ? (
+          <div className="flex flex-col gap-2">
+            {Array(5)
+              .fill(null)
+              .map((_, index) => (
+                <Skeleton key={index} className="w-full h-[74px]" />
+              ))}
+          </div>
+        ) : (
+          <>
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Получатель</TableHead>
+                  <TableHead>Дата</TableHead>
+                  <TableHead className="text-right">Сумма</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {transactions.map((item, index) => (
+                  <Dialog key={index}>
+                    <DialogTrigger asChild>
+                      <TableRow key={index} className="cursor-pointer">
+                        <TableCell>
+                          <div className="font-medium">{item.category}</div>
+                          <div
+                            className={cn(
+                              "hidden text-sm text-muted-foreground md:inline",
+                              item.transactionalType === "payment"
+                                ? "text-green-400"
+                                : "text-red-400"
+                            )}
+                          >
+                            {item.transactionalType}
+                          </div>
+                        </TableCell>
+                        <TableCell>
+                          {new Date(item.date)?.toLocaleString()}
+                        </TableCell>
+                        <TableCell className="text-right">
+                          {(item.amount as number)?.toLocaleString("ru-RU", {
+                            style: "currency",
+                            currency: "RUB",
+                          })}
+                        </TableCell>
+                      </TableRow>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-[425px]">
+                      <DialogHeader>
+                        <DialogTitle>Редактирование транзакции</DialogTitle>
+                      </DialogHeader>
+                      <form
+                        id="edit-trs"
+                        className="grid gap-4 py-4"
+                        onSubmit={async (e) => {
+                          e.preventDefault();
+
+                          const formData = new FormData(e.target as any);
+                          const { amount, category } =
+                            Object.fromEntries(formData);
+
+                          await api.post(`/transaction`, {
+                            amount: Number(amount),
+                            category,
+                            date: item.date,
+                            transactionalType: item.transactionalType,
+                          });
+
+                          // setTransaction(
+                          //   [payload, ...transactions].slice(0, 10)
+                          // );
+                        }}
+                      >
+                        <div className="grid grid-cols-4 items-center gap-4">
+                          <Label className="text-right">Сумма</Label>
+                          <Input
+                            name="amount"
+                            defaultValue={item.amount}
+                            className="col-span-3"
+                            required
+                          />
+                        </div>
+                        <div className="grid grid-cols-4 items-center gap-4">
+                          <Label htmlFor="username" className="text-right">
+                            Категория
+                          </Label>
+                          <Input
+                            name="category"
+                            defaultValue={item.category}
+                            className="col-span-3"
+                            required
+                          />
+                        </div>
+                      </form>
+                      <DialogFooter>
+                        <Button type="submit" form="edit-trs">
+                          Сохранить
+                        </Button>
+                      </DialogFooter>
+                    </DialogContent>
+                  </Dialog>
+                ))}
+              </TableBody>
+            </Table>
+            <div className="flex justify-center">
+              <Button
+                size="sm"
+                className="mt-2"
+                variant="ghost"
+                onClick={async () => {
+                  const payload = {
+                    date: faker.date.recent(),
+                    amount: Number(faker.finance.amount()),
+                    category: faker.word.noun(),
+                    transactionalType: faker.finance.transactionType(),
+                  };
+
+                  await api.post("transaction", payload);
+                  setTransaction([payload, ...transactions].slice(0, 10));
+                }}
+              >
+                Загрузить еще
+              </Button>
+            </div>
+          </>
+        )}
       </CardContent>
     </Card>
   );
@@ -369,7 +409,7 @@ const RecentTransactions = () => {
   return (
     <Card x-chunk="dashboard-01-chunk-5">
       <CardHeader>
-        <CardTitle>Недавние транзакции</CardTitle>
+        <CardTitle>Подписки</CardTitle>
       </CardHeader>
       <CardContent className="grid gap-8">
         <div className="flex items-center gap-4">
