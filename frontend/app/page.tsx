@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Activity,
   ArrowUpRight,
@@ -39,22 +41,10 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-
-const formatCurrency = (value: number) => {
-  return new Intl.NumberFormat("ru-RU", {
-    style: "currency",
-    currency: "RUB",
-  }).format(value);
-};
-
-async function getData() {
-  // const res = await fetch("https://api.example.com/data");
-  // return res.json();
-}
-
-export default async function Dashboard() {
-  // const data = await getData();
-
+import { api } from "@/shared/api";
+import { useEffect } from "react";
+import { faker } from "@faker-js/faker";
+export default function Dashboard() {
   return (
     <div className="flex min-h-screen w-full flex-col">
       <Header />
@@ -225,6 +215,15 @@ const Stats = () => {
 };
 
 const Transactions = () => {
+  const getData = async () => {
+    const res = await api.get("/transaction/all");
+    return res.data;
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
   return (
     <Card className="xl:col-span-2" x-chunk="dashboard-01-chunk-4">
       <CardHeader className="flex flex-row items-center">
@@ -232,12 +231,28 @@ const Transactions = () => {
           <CardTitle>Транзакции</CardTitle>
           <CardDescription>Недавние транзакции и заказы</CardDescription>
         </div>
-        <Button asChild size="sm" className="ml-auto gap-1">
-          <Link href="#">
-            Посмотреть все
-            <ArrowUpRight className="h-4 w-4" />
-          </Link>
-        </Button>
+        <div className="flex gap-2 ml-auto">
+          <Button
+            size="sm"
+            className="gap-1"
+            onClick={async () => {
+              const res = await api.post("transaction", {
+                date: faker.date.recent(),
+                amount: Number(faker.finance.amount()),
+                category: faker.word.adverb(),
+                transactionalType: faker.word.conjunction(),
+              });
+            }}
+          >
+            Добавить
+          </Button>
+          <Button asChild size="sm" className="gap-1">
+            <Link href="#">
+              Посмотреть все
+              <ArrowUpRight className="h-4 w-4" />
+            </Link>
+          </Button>
+        </div>
       </CardHeader>
       <CardContent>
         <Table>
