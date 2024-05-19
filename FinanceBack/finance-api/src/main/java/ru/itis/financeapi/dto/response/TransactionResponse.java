@@ -4,6 +4,7 @@ import java.time.Instant;
 import java.util.UUID;
 
 public record TransactionResponse(
+        UUID id,
         UUID accountId,
 
         Instant date,
