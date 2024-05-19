@@ -2,6 +2,7 @@ package ru.itis.financeimpl.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 import ru.itis.financeapi.api.GoalAndBudgetLimitApi;
 import ru.itis.financeapi.dto.request.GoalAndBudgetLimitCreateRequest;
@@ -15,6 +16,7 @@ import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin
 public class GoalAndBudgetLimitController implements GoalAndBudgetLimitApi {
     private final GoalAndBudgetLimitService service;
 

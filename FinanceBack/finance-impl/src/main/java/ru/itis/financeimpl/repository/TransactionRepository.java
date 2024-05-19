@@ -21,19 +21,14 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID> 
 
     Page<Transaction> findAllByDateAndAccountId(Instant date, Pageable pageable, UUID accountId);
 
-    @Query("SELECT t FROM Transaction t WHERE YEAR(t.date) = :year AND MONTH(t.date) = :month AND " +
-            "t.account.id = :accountId")
+    @Query("SELECT t FROM Transaction t WHERE YEAR(t.date) = :year AND MONTH(t.date) = :month AND t.account.id = :accountId")
     Page<Transaction> findAllByMonthAndYearAndAccountId(@Param("year") int year,
-                                                        @Param("month") int month,
-                                                        Pageable pageable,
-                                                        @Param("accountId")
-                                                        UUID accountId);
+                                                         @Param("month") int month,
+                                                         Pageable pageable,
+                                                         @Param("accountId") UUID accountId);
 
-    @Query("SELECT t FROM Transaction t WHERE YEAR(t.date) = :yearh AND t.account.id = :accountId")
-    Page<Transaction> findAllByYearAndAccountId(@Param("year") int year,
-                                                Pageable pageable,
-                                                @Param("accountId")
-                                                UUID accountId);
+    @Query("SELECT t FROM Transaction t WHERE YEAR(t.date) = :year AND t.account.id = :accountId")
+    Page<Transaction> findAllByYearAndAccountId(@Param("year") int year, Pageable pageable, UUID accountId);
 
     Page<Transaction> findAllByTransactionalTypeAndAccountId(String type, Pageable pageable, UUID accountId);
 

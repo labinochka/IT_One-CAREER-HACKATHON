@@ -1,0 +1,31 @@
+version: '3'
+services:
+  application:
+    build:
+      args:
+        JAR_FILE: build/libs/*.jar
+    depends_on:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/finance
+      SPRING_DATASOURCE_HIKARI_USERNAME: postgres
+      SPRING_DATASOURCE_HIKARI_PASSWORD: 1234
+      SPRING_HIKARI_JDBC_URL: jdbc:postgresql://db:5432/finance
+      SPRING_DATASOURCE_HOSTNAME: db
+      SPRING_DATASOURCE_PORT: 5432
+      JWT_SECRET: 32wADAS1vnn2321fvsGENbsnbdnskbESFEGVESBVSBFEREAWEVDVEGEVETEVESGESFSEGVSGESF23w32423423432
+      JWT_EXPIRATION: 360000
+    ports:
+      - 8080:8080
+
+  db:
+    image: postgres
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: finance
+    volumes:
+      - postgres_data:/data/postgres
+

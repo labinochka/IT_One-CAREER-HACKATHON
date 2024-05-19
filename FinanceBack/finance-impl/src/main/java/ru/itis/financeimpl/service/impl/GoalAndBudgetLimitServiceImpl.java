@@ -70,9 +70,9 @@ public class GoalAndBudgetLimitServiceImpl implements GoalAndBudgetLimitService 
                 email
         );
         for (TransactionResponse transaction : transactions) {
-            if (transaction.amount() > 0) {
+            if (transaction.category().equals("deposit")) {
                 currentGoalMakeMoneyProgress += transaction.amount();
-            } else if (transaction.amount() < 0) {
+            } else if (transaction.category().equals("payment")) {
                 currentGoalSpendMoneyProgress += transaction.amount();
             }
         }
