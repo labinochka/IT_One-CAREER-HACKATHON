@@ -155,4 +155,15 @@ public interface TransactionApi {
     })
     @DeleteMapping("/{id}")
     void deleteById(@PathVariable("id") UUID id, @AuthenticationPrincipal UserDetails userDetails);
+
+    @Operation(summary = "Синхронизация с банком")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Синхронизация прошла успешно"),
+            @ApiResponse(responseCode = "400", description = "Ошибка валидации"),
+            @ApiResponse(responseCode = "401", description = "Не пройдена авторизация"),
+            @ApiResponse(responseCode = "403", description = "Недостаточно прав"),
+            @ApiResponse(responseCode = "500", description = "Ведутся технические работы")
+    })
+    @PostMapping("/synchronize")
+    void synchronizeWithBank(@AuthenticationPrincipal UserDetails userDetails);
 }
