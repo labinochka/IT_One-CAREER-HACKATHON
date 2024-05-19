@@ -1,4 +1,4 @@
-package ru.itis.financeimpl.controller;
+package ru.itis.financeimpl.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
