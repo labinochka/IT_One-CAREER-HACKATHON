@@ -27,7 +27,7 @@ public interface GoalAndBudgetLimitApi {
             @ApiResponse(responseCode = "403", description = "Недостаточно прав"),
             @ApiResponse(responseCode = "500", description = "Ведутся технические работы")
     })
-    void create(GoalAndBudgetLimitCreateRequest saveRequest, @AuthenticationPrincipal UserDetails userDetails);
+    void create(@RequestBody GoalAndBudgetLimitCreateRequest saveRequest, @AuthenticationPrincipal UserDetails userDetails);
 
     @GetMapping("/all")
     @Operation(summary = "Получение целей и бюджетов", method = "get-all-current-goals-and-limits")
@@ -61,7 +61,7 @@ public interface GoalAndBudgetLimitApi {
             @ApiResponse(responseCode = "403", description = "Недостаточно прав"),
             @ApiResponse(responseCode = "500", description = "Ведутся технические работы")
     })
-    void update(GoalAndBudgetLimitUpdateRequest updateRequest, @AuthenticationPrincipal UserDetails userDetails);
+    void update(@RequestBody GoalAndBudgetLimitUpdateRequest updateRequest, @AuthenticationPrincipal UserDetails userDetails);
 
     @Operation(summary = "Удаление цели и бюджета по id", method = "delete-by-id")
     @ApiResponses(value = {

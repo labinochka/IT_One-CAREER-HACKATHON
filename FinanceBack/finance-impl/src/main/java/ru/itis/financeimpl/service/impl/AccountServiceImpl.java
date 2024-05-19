@@ -12,6 +12,8 @@ import ru.itis.financeimpl.model.Role;
 import ru.itis.financeimpl.repository.AccountRepository;
 import ru.itis.financeimpl.service.AccountService;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class AccountServiceImpl implements AccountService {
@@ -34,5 +36,10 @@ public class AccountServiceImpl implements AccountService {
                 .map(accountMapper::toResponse)
                 .orElseThrow(() -> new AccountNotFoundException(email)
         );
+    }
+
+    @Override
+    public List<AccountResponse> findAll() {
+        return accountMapper.toResponse(accountRepository.findAll());
     }
 }

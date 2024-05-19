@@ -18,7 +18,12 @@ databaseChangeLog:
   - include:
       file: DDL/20240518-add-role-for-account-db.sql
       relativeToChangelogFile: true
+          
+  - include:
+      file: DDL/20240519-init-BudgetDistributionRule-db.sql
+      relativeToChangelogFile: true
 
   - include:
       file: DDL/20240618-init-subscription-db.sql
       relativeToChangelogFile: true
+      
