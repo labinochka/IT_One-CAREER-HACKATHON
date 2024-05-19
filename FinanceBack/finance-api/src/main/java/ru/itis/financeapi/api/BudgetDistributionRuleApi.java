@@ -26,7 +26,7 @@ public interface BudgetDistributionRuleApi {
             @ApiResponse(responseCode = "403", description = "Недостаточно прав"),
             @ApiResponse(responseCode = "500", description = "Ведутся технические работы")
     })
-    void create(BudgetDistributionRuleSaveRequest saveRequest, @AuthenticationPrincipal UserDetails userDetails);
+    void create(@RequestBody BudgetDistributionRuleSaveRequest saveRequest, @AuthenticationPrincipal UserDetails userDetails);
 
     @PatchMapping
     @Operation(summary = "Обновление правила распределения бюджета", method = "update")
@@ -37,7 +37,7 @@ public interface BudgetDistributionRuleApi {
             @ApiResponse(responseCode = "403", description = "Недостаточно прав"),
             @ApiResponse(responseCode = "500", description = "Ведутся технические работы")
     })
-    void update(BudgetDistributionRuleUpdateRequest updateRequest, @AuthenticationPrincipal UserDetails userDetails);
+    void update(@RequestBody BudgetDistributionRuleUpdateRequest updateRequest, @AuthenticationPrincipal UserDetails userDetails);
 
     @GetMapping
     @Operation(summary = "Получение правил распределения бюджета", method = "get-all")

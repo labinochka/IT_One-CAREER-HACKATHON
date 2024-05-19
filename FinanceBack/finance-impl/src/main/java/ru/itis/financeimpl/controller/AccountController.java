@@ -1,6 +1,7 @@
 package ru.itis.financeimpl.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 import ru.itis.financeapi.api.AccountApi;
 import ru.itis.financeapi.dto.request.AccountSaveRequest;
@@ -12,6 +13,7 @@ import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin
 public class AccountController implements AccountApi {
 
     private final AccountService accountService;

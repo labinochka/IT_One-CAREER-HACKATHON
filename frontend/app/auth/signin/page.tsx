@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
@@ -10,8 +12,16 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import axios from "axios";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function SigninPage() {
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const [error, setError] = useState<boolean>();
+  const router = useRouter()
+
   return (
     <div className="min-h-screen flex justify-center items-center w-full flex-col">
       <Card className="mx-auto max-w-sm">
@@ -22,7 +32,24 @@ export default function SigninPage() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="grid gap-4">
+          <form
+            className="grid gap-4"
+            onSubmit={async (e) => {
+              try {
+                e.preventDefault();
+                const res = await axios.post("http://localhost:8080/sign-in", {
+                  email,
+                  password,
+                });
+
+                localStorage.setItem("access-token", res.data?.accessToken);
+                router.push('/')
+              } catch (e) {
+                setError(true);
+                console.error(e);
+              }
+            }}
+          >
             <div className="grid gap-2">
               <Label htmlFor="email">Электронная почта</Label>
               <Input
@@ -30,6 +57,8 @@ export default function SigninPage() {
                 type="email"
                 placeholder="m@example.com"
                 required
+                value={email ?? ""}
+                onInput={(e) => setEmail((e.target as any).value)}
               />
             </div>
             <div className="grid gap-2">
@@ -42,12 +71,25 @@ export default function SigninPage() {
                   Забыли пароль?
                 </Link>
               </div>
-              <Input id="password" type="password" required />
+              <Input
+                id="password"
+                type="password"
+                required
+                value={password ?? ""}
+                onInput={(e) => setPassword((e.target as any).value)}
+              />
             </div>
             <Button type="submit" className="w-full">
               Войти
             </Button>
-          </div>
+          </form>
+
+          {error && (
+            <div className="text-center text-sm mt-4 text-red-500">
+              Ошибка авторизации
+            </div>
+          )}
+
           <div className="mt-4 text-center text-sm">
             Нет аккаунта?{" "}
             <Link href="/auth/signup" className="underline">

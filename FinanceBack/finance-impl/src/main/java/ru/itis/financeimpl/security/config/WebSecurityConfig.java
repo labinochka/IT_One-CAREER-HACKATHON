@@ -55,6 +55,7 @@ public class WebSecurityConfig {
                         .requestMatchers(AUTHENTICATED).authenticated()
                 )
                 .formLogin(AbstractHttpConfigurer::disable)
+                .cors(Customizer.withDefaults())
                 .addFilterAfter(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .build();
     }

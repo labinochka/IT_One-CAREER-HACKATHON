@@ -1,0 +1,5 @@
+rootProject.name = 'Bank'
+
+include 'bank-api'
+include 'bank-db'
+include 'bank-impl'

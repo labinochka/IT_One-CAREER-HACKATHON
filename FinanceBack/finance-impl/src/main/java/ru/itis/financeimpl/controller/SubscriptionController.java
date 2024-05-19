@@ -1,6 +1,7 @@
 package ru.itis.financeimpl.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 import ru.itis.financeapi.api.SubscriptionApi;
 import ru.itis.financeapi.dto.request.SubscriptionSaveRequest;
@@ -13,6 +14,7 @@ import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin
 public class SubscriptionController implements SubscriptionApi {
 
     private final SubscriptionService subscriptionService;

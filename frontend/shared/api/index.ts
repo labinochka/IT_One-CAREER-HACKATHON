@@ -6,3 +6,11 @@ export const api = axios.create({
     "Content-Type": "application/json",
   },
 });
+
+api.interceptors.request.use((config) => {
+  const accessToken = localStorage.getItem('access-token');
+  if (accessToken && config.headers)
+    config.headers.Authorization = `Bearer ${accessToken}`;
+
+  return config;
+});
